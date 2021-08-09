@@ -3,6 +3,13 @@ const input = document.querySelector('#txtTaskName');
 const btnDeleteAll = document.querySelector('#btnDeleteAll');
 const tasklist = document.querySelector('#task-list');
 
+const items = ['item1', 'item2', 'item3', 'item4','item5','item6'];
+
+
+//load items
+
+loadItems();
+
 // call event listeners
 eventListeners();
 
@@ -18,17 +25,17 @@ function eventListeners() {
     btnDeleteAll.addEventListener('click', deleteAll);
 }
 
+function loadItems() {
+    items.forEach(function (item) {
+        createItem(item)
+    })
+}
 
-
-// add new item
-function addNewItem(e) {
-    if (input.value === '') {
-        alert('add new item');
-    }
+function createItem(text) {
     // li creatElement
     const li = document.createElement('li');
     li.className = 'list-group-item  list-group-item-success';
-    li.appendChild(document.createTextNode(input.value));
+    li.appendChild(document.createTextNode(text));
     // a creatElement
     const a = document.createElement('a');
     a.classList = 'delete-item float-right';
@@ -42,6 +49,20 @@ function addNewItem(e) {
     //add li to ul
 
     tasklist.appendChild(li);
+}
+
+
+
+// add new item
+function addNewItem(e) {
+    if (input.value === '') {
+        alert('add new item');
+    }
+
+
+    // creat item
+
+    createItem(input.value);
 
     // clear input
 
@@ -51,15 +72,18 @@ function addNewItem(e) {
 
 //delete an item
 function deleteItem(e) {
-    if (confirm('are you sure?')) {
-        if (e.target.className === 'fas fa-times') {
+
+    if (e.target.className === 'fas fa-times') {
+        if (confirm('are you sure?')) {
             e.target.parentElement.parentElement.remove();
         }
 
-        console.log(e.target);
-
-        e.preventDefault();
     }
+
+    console.log(e.target);
+
+    e.preventDefault();
+
 
 
 
